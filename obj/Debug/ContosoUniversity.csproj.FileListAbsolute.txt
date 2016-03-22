@@ -82,3 +82,5 @@ C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Deb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.GenerateResource.Cache
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.dll
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.departmenttable.resources
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.adddeprtment.resources

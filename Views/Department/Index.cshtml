@@ -9,34 +9,77 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+           TARIKH
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Budget)
+            NAMA PENUAL
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+           NOMBOR LESEN / PAT-G
         </th>
         <th>
-            Administrator
+            KEBENARAN BERTULIS
         </th>
+        <th>
+            RESIT RASMI
+        </th>
+        <th>
+            SKRAP
+        </th>
+        <th>
+           LATEKS
+        </th>
+        <th>
+            LAIN-LAIN
+        </th>
+        <th>
+            KG
+        </th>
+        <th>
+            HARGA SEKILO
+        </th>
+        <th>
+            JUMLAH DIBAYAR
+        </th>
+        
+       
         <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Administrator.FullName)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KebenaranBertulis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResitRasmi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Skrap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lateks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lain)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Multiplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget)
+            </td>
+           
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |

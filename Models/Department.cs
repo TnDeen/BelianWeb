@@ -12,6 +12,20 @@ namespace ContosoUniversity.Models
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
+        public string KebenaranBertulis { get; set; }
+
+        public string ResitRasmi { get; set; }
+
+        public Boolean Skrap { get; set; }
+
+        public Boolean Lateks { get; set; }
+
+        public Boolean Lain { get; set; }
+
+        public decimal Kg { get; set; }
+
+        public decimal Multiplier { get; set; }
+
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal Budget { get; set; }

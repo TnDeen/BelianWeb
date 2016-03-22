@@ -173,6 +173,14 @@
     <Compile Include="Migrations\201501260957200_FilePaths.Designer.cs">
       <DependentUpon>201501260957200_FilePaths.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603221333492_department table.cs" />
+    <Compile Include="Migrations\201603221333492_department table.Designer.cs">
+      <DependentUpon>201603221333492_department table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603221348296_add deprtment.cs" />
+    <Compile Include="Migrations\201603221348296_add deprtment.Designer.cs">
+      <DependentUpon>201603221348296_add deprtment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -284,6 +292,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501260957200_FilePaths.resx">
       <DependentUpon>201501260957200_FilePaths.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603221333492_department table.resx">
+      <DependentUpon>201603221333492_department table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603221348296_add deprtment.resx">
+      <DependentUpon>201603221348296_add deprtment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
