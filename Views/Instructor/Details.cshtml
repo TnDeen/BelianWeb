@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Instructor</h4>
+    <h4>Penjual</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -32,14 +32,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.FirstMidName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HireDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HireDate)
         </dd>
         @if (Model.FilePaths.Any(f => f.FileType == FileType.Photo))
         {

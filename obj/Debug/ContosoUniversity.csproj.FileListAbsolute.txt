@@ -83,3 +83,5 @@ C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Deb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.departmenttable.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.adddeprtment.resources
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.updateinstructor.resources
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.REMOVECOLUMNDATE.resources

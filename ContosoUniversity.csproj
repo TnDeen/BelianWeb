@@ -181,6 +181,14 @@
     <Compile Include="Migrations\201603221348296_add deprtment.Designer.cs">
       <DependentUpon>201603221348296_add deprtment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603221535299_update instructor.cs" />
+    <Compile Include="Migrations\201603221535299_update instructor.Designer.cs">
+      <DependentUpon>201603221535299_update instructor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603221550175_REMOVE COLUMN DATE.cs" />
+    <Compile Include="Migrations\201603221550175_REMOVE COLUMN DATE.Designer.cs">
+      <DependentUpon>201603221550175_REMOVE COLUMN DATE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -298,6 +306,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603221348296_add deprtment.resx">
       <DependentUpon>201603221348296_add deprtment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603221535299_update instructor.resx">
+      <DependentUpon>201603221535299_update instructor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603221550175_REMOVE COLUMN DATE.resx">
+      <DependentUpon>201603221550175_REMOVE COLUMN DATE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

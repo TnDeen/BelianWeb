@@ -80,7 +80,7 @@ namespace ContosoUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstMidName,HireDate,OfficeAssignment")]Instructor instructor, string[] selectedCourses, HttpPostedFileBase upload)
+        public ActionResult Create([Bind(Include = "LastName,FirstMidName,NomborLesen,OfficeAssignment")]Instructor instructor, string[] selectedCourses, HttpPostedFileBase upload)
         {
             if (selectedCourses != null)
             {
@@ -160,20 +160,16 @@ namespace ContosoUniversity.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var instructorToUpdate = db.Instructors
-               .Include(i => i.OfficeAssignment)
-               .Include(i => i.Courses)
                .Where(i => i.ID == id)
                .Single();
 
             if (TryUpdateModel(instructorToUpdate, "",
-               new string[] { "LastName", "FirstMidName", "HireDate", "OfficeAssignment" }))
+               new string[] { "LastName", "FirstMidName", "HireDate", "NomborLesen", "OfficeAssignment" }))
             {
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(instructorToUpdate.OfficeAssignment.Location))
-                    {
+                    
                         instructorToUpdate.OfficeAssignment = null;
-                    }
 
                     UpdateInstructorCourses(selectedCourses, instructorToUpdate);
 
