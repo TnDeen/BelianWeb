@@ -58,7 +58,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID")] Department department)
+        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,KebenaranBertulis,ResitRasmi,StartDate,InstructorID")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int? id, byte[] rowVersion)
         {
-            string[] fieldsToBind = new string[] { "Name", "Budget", "StartDate", "InstructorID", "RowVersion" };
+            string[] fieldsToBind = new string[] { "KebenaranBertulis", "ResitRasmi", "StartDate", "InstructorID", "RowVersion" };
 
             if (id == null)
             {

@@ -70,7 +70,6 @@ C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Sys
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\System.Web.WebPages.Razor.xml
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Antlr3.Runtime.pdb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Newtonsoft.Json.xml
-C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.csprojResolveAssemblyReference.cache
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.InitialCreate.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.MaxLengthOnNames.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.ComplexDataModel.resources
