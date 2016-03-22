@@ -58,10 +58,11 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,KebenaranBertulis,ResitRasmi,StartDate,InstructorID")] Department department)
+        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,KebenaranBertulis,ResitRasmi,Skrap,Lateks,Lain,StartDate,Multiplier,Kg,InstructorID")] Department department)
         {
             if (ModelState.IsValid)
             {
+                department.Budget = department.Kg * department.Multiplier;
                 db.Departments.Add(department);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -94,7 +95,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int? id, byte[] rowVersion)
         {
-            string[] fieldsToBind = new string[] { "KebenaranBertulis", "ResitRasmi", "StartDate", "InstructorID", "RowVersion" };
+            string[] fieldsToBind = new string[] { "KebenaranBertulis", "ResitRasmi", "StartDate", "Skrap", "Lateks", "Lain", "Kg", "Multiplier", "Lateks", "InstructorID", "RowVersion" };
 
             if (id == null)
             {
@@ -116,6 +117,8 @@ namespace ContosoUniversity.Controllers
             {
                 try
                 {
+                    departmentToUpdate.Budget = departmentToUpdate.Kg * departmentToUpdate.Multiplier;
+                    departmentToUpdate.Lateks = true;
                     db.Entry(departmentToUpdate).OriginalValues["RowVersion"] = rowVersion;
                     db.Entry(departmentToUpdate).State = EntityState.Modified;
                     await db.SaveChangesAsync();
