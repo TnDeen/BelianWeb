@@ -10,12 +10,54 @@ using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace ContosoUniversity.Controllers
 {
     public class DepartmentController : Controller
     {
         private SchoolContext db = new SchoolContext();
+
+        public ActionResult Export()
+        {
+            var products = new System.Data.DataTable("teste");
+            products.Columns.Add("col1", typeof(DateTime));
+            products.Columns.Add("col2", typeof(string));
+            products.Columns.Add("col3", typeof(string));
+            products.Columns.Add("col4", typeof(string));
+            products.Columns.Add("col5", typeof(string));
+            products.Columns.Add("col6", typeof(string));
+
+            var departments = db.Departments.Include(d => d.Administrator);
+
+            foreach (var dept in departments){
+                products.Rows.Add(dept.StartDate, dept.Administrator.FullName, dept.Administrator.NomborLesen,
+                    dept.KebenaranBertulis, dept.ResitRasmi, dept.Skrap ? "Ya":"Tidak");
+            }
+
+            var grid = new GridView();
+            grid.DataSource = products;
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View("MyView");
+        }
 
         // GET: Department
         public async Task<ActionResult> Index()
