@@ -24,6 +24,7 @@ namespace ContosoUniversity.Models
 
         public decimal Kg { get; set; }
 
+        [Display(Name = "Harga Sekilo")]
         public decimal Multiplier { get; set; }
 
         [DataType(DataType.Currency)]
@@ -40,6 +41,7 @@ namespace ContosoUniversity.Models
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
+        [Display(Name = "Penjual")]
         public virtual Instructor Administrator { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
     }

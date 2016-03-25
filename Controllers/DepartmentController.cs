@@ -23,18 +23,24 @@ namespace ContosoUniversity.Controllers
         public ActionResult Export()
         {
             var products = new System.Data.DataTable("teste");
-            products.Columns.Add("col1", typeof(DateTime));
-            products.Columns.Add("col2", typeof(string));
-            products.Columns.Add("col3", typeof(string));
-            products.Columns.Add("col4", typeof(string));
-            products.Columns.Add("col5", typeof(string));
-            products.Columns.Add("col6", typeof(string));
+            products.Columns.Add("Tarikh", typeof(DateTime));
+            products.Columns.Add("Nama Penjual", typeof(string));
+            products.Columns.Add("Nombor Lesen/Pat-G", typeof(string));
+            products.Columns.Add("Kebenaran Bertulis", typeof(string));
+            products.Columns.Add("Resit Rasmi", typeof(string));
+            products.Columns.Add("Skrap", typeof(string));
+            products.Columns.Add("Lateks", typeof(string));
+            products.Columns.Add("Lain-Lain", typeof(string));
+            products.Columns.Add("KG", typeof(string));
+            products.Columns.Add("Harga Sekilo", typeof(string));
+            products.Columns.Add("Jumlah Dibayar", typeof(string));
 
             var departments = db.Departments.Include(d => d.Administrator);
 
             foreach (var dept in departments){
-                products.Rows.Add(dept.StartDate, dept.Administrator.FullName, dept.Administrator.NomborLesen,
-                    dept.KebenaranBertulis, dept.ResitRasmi, dept.Skrap ? "Ya":"Tidak");
+                products.Rows.Add(dept.StartDate.Date, dept.Administrator.FullName, dept.Administrator.NomborLesen,
+                    dept.KebenaranBertulis, dept.ResitRasmi, dept.Skrap ? "Ya" : "Tidak", dept.Lateks ? "Ya" : "Tidak", dept.Lain ? "Ya" : "Tidak"
+                    , dept.Kg, dept.Multiplier, dept.Budget);
             }
 
             var grid = new GridView();
@@ -137,7 +143,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int? id, byte[] rowVersion)
         {
-            string[] fieldsToBind = new string[] { "KebenaranBertulis", "ResitRasmi", "StartDate", "Skrap", "Lateks", "Lain", "Kg", "Multiplier", "Lateks", "InstructorID", "RowVersion" };
+            string[] fieldsToBind = new string[] { "KebenaranBertulis", "ResitRasmi", "StartDate", "Skrap", "Lateks", "Lain", "Kg", "Multiplier", "InstructorID", "RowVersion" };
 
             if (id == null)
             {
