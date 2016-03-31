@@ -20,6 +20,54 @@ namespace ContosoUniversity.Controllers
     {
         private SchoolContext db = new SchoolContext();
 
+        public ActionResult ExportClaim()
+        {
+            var products = new System.Data.DataTable("teste");
+            products.Columns.Add("Bil", typeof(string));
+            products.Columns.Add("Tarikh", typeof(string));
+            products.Columns.Add("No. Siri Resit Rasmi", typeof(string));
+            products.Columns.Add("Berat Basah (kg)", typeof(string));
+            products.Columns.Add("KGK", typeof(string));
+            products.Columns.Add("Berat 100% KGK", typeof(string));
+            products.Columns.Add("CATATAN", typeof(string));
+            
+            //dept.Administrator.FullName
+            decimal rm = 0;
+            decimal kg = 0;
+            var departments = db.Departments.Include(d => d.Administrator);
+            int x = 1;
+            foreach (var dept in departments)
+            {
+                rm = rm + dept.Budget;
+                kg = kg + dept.Kg;
+                products.Rows.Add(x++,dept.StartDate.Date, dept.ResitRasmi
+                    , dept.Kg,"60%" , dept.Budget, dept.Multiplier);
+            }
+            products.Rows.Add("", "", "", "", "", "", "");
+            products.Rows.Add("", "Total :", "", kg, "", rm, "");
+
+            var grid = new GridView();
+            grid.DataSource = products;
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=Claim.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View("MyView");
+        }
+
         public ActionResult Export()
         {
             var products = new System.Data.DataTable("teste");
@@ -49,7 +97,7 @@ namespace ContosoUniversity.Controllers
 
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            Response.AddHeader("content-disposition", "attachment; filename=Belian.xls");
             Response.ContentType = "application/ms-excel";
 
             Response.Charset = "";
