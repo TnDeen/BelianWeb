@@ -10,12 +10,65 @@ using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
 using System.Data.Entity.Infrastructure;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
 
 namespace ContosoUniversity.Controllers
 {
     public class InstructorController : Controller
     {
         private SchoolContext db = new SchoolContext();
+
+        public ActionResult ExportClaim(int? id)
+        {
+            var products = new System.Data.DataTable("teste");
+            products.Columns.Add("Bil", typeof(string));
+            products.Columns.Add("Tarikh", typeof(string));
+            products.Columns.Add("No. Siri Resit Rasmi", typeof(string));
+            products.Columns.Add("Berat Basah (kg)", typeof(string));
+            products.Columns.Add("KGK", typeof(string));
+            products.Columns.Add("Berat 100% KGK", typeof(string));
+            products.Columns.Add("CATATAN", typeof(string));
+
+            //dept.Administrator.FullName
+            decimal rm = 0;
+            decimal kg = 0;
+
+            string query = "select * from department where InstructorID = " + id;
+            var departments = db.Database.SqlQuery<Department>(query);
+            int x = 1;
+            foreach (var dept in departments)
+            {
+                rm = rm + dept.Budget;
+                kg = kg + dept.Kg;
+                products.Rows.Add(x++, dept.StartDate.Date, dept.ResitRasmi
+                    , dept.Kg, "60%", dept.Budget, dept.Multiplier);
+            }
+            products.Rows.Add("", "", "", "", "", "", "");
+            products.Rows.Add("", "Total :", "", kg, "", rm, "");
+
+            var grid = new GridView();
+            grid.DataSource = products;
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=Claim.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View("MyView");
+        }
 
         // GET: Instructor
         public ActionResult Index(int? id, int? courseID)
@@ -32,6 +85,8 @@ namespace ContosoUniversity.Controllers
                 ViewBag.InstructorID = id.Value;
                 viewModel.Courses = viewModel.Instructors.Where(
                     i => i.ID == id.Value).Single().Courses;
+
+                ExportClaim(id);
             }
 
             if (courseID != null)
