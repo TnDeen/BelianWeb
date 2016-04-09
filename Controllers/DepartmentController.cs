@@ -13,6 +13,7 @@ using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ContosoUniversity.ViewModels;
 
 namespace ContosoUniversity.Controllers
 {
@@ -114,10 +115,11 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var departments = db.Departments.Include(d => d.Administrator);
-            return View(await departments.ToListAsync());
+            var viewModel = new BelianVM();
+            viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
+            return View(viewModel);
         }
 
         // GET: Department/Details/5

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ContosoUniversity.Models.Department>
+﻿@model ContosoUniversity.ViewModels.BelianVM
 @{
     ViewBag.Title = "Departments";
 }
@@ -49,7 +49,7 @@
        
         <th></th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.DepmtList)
     {
         <tr>
             <td>
