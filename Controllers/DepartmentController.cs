@@ -115,12 +115,16 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department
-        public ActionResult Index(DateTime? SelectedDT)
+        public ActionResult Index(DateTime? SelectedDT, int? InstructorID)
         {
+
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName");
+
             var viewModel = new BelianVM();
-            if (SelectedDT != null)
+            if (SelectedDT != null && InstructorID != null)
             {
-                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate == SelectedDT);
+                int year = SelectedDT.Value.Month;
+                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == year && d.Administrator.ID == InstructorID);
             }
             else
             {

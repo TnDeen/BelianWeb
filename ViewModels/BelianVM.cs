@@ -15,5 +15,7 @@ namespace ContosoUniversity.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public DateTime SelectedDT { get; set; }
+
+        public int? InstructorID { get; set; }
     }
 }
