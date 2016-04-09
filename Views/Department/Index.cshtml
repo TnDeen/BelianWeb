@@ -10,6 +10,16 @@
 
     @Html.ActionLink("Export Claim", "ExportClaim") |
 </p>
+@using (Html.BeginForm("Index", "Department", FormMethod.Get))
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SelectedDT, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SelectedDT, "", new { @class = "text-danger" })
+        </div>
+        <input type="submit" value="Search" />
+    </div>
+}
 <table class="table">
     <tr>
         <th>

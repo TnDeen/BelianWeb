@@ -115,10 +115,19 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department
-        public ActionResult Index()
+        public ActionResult Index(DateTime? SelectedDT)
         {
             var viewModel = new BelianVM();
-            viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
+            if (SelectedDT != null)
+            {
+                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate == SelectedDT);
+            }
+            else
+            {
+                viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
+            }
+            
+            
             return View(viewModel);
         }
 
