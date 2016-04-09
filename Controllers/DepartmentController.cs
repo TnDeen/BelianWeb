@@ -20,6 +20,7 @@ namespace ContosoUniversity.Controllers
     public class DepartmentController : Controller
     {
         private SchoolContext db = new SchoolContext();
+        private IEnumerable<Department> selectedDept = null;
 
         public ActionResult ExportClaim()
         {
@@ -35,7 +36,7 @@ namespace ContosoUniversity.Controllers
             //dept.Administrator.FullName
             decimal rm = 0;
             decimal kg = 0;
-            var departments = db.Departments.Include(d => d.Administrator);
+            var departments = selectedDept;
             int x = 1;
             foreach (var dept in departments)
             {
@@ -69,7 +70,7 @@ namespace ContosoUniversity.Controllers
             return View("MyView");
         }
 
-        public ActionResult Export()
+        public ActionResult Export(IEnumerable<Department> dpmntList)
         {
             var products = new System.Data.DataTable("teste");
             products.Columns.Add("Tarikh", typeof(DateTime));
@@ -84,14 +85,17 @@ namespace ContosoUniversity.Controllers
             products.Columns.Add("Harga Sekilo", typeof(string));
             products.Columns.Add("Jumlah Dibayar", typeof(string));
 
-            var departments = db.Departments.Include(d => d.Administrator);
-
-            foreach (var dept in departments){
+            if (dpmntList == null) 
+            {
+                dpmntList = db.Departments.Include(d => d.Administrator);
+            }
+            foreach (var dept in dpmntList)
+            {
                 products.Rows.Add(dept.StartDate.Date, dept.Administrator.FullName, dept.Administrator.NomborLesen,
                     dept.KebenaranBertulis, dept.ResitRasmi, dept.Skrap ? "Ya" : "Tidak", dept.Lateks ? "Ya" : "Tidak", dept.Lain ? "Ya" : "Tidak"
                     , dept.Kg, dept.Multiplier, dept.Budget);
             }
-
+            
             var grid = new GridView();
             grid.DataSource = products;
             grid.DataBind();
@@ -115,7 +119,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department
-        public ActionResult Index(DateTime? SelectedDT, int? InstructorID)
+        public ActionResult Index(DateTime? SelectedDT, int? InstructorID, string submitButton)
         {
 
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName");
@@ -125,11 +129,21 @@ namespace ContosoUniversity.Controllers
             {
                 int year = SelectedDT.Value.Month;
                 viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == year && d.Administrator.ID == InstructorID);
+                switch (submitButton)
+                {
+                    case "Export":
+                        Export(viewModel.DepmtList);
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
                 viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
             }
+
+            selectedDept = viewModel.DepmtList;
             
             
             return View(viewModel);
