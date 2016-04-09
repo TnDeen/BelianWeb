@@ -12,100 +12,109 @@
 </p>
 @using (Html.BeginForm("Index", "Department", FormMethod.Get))
 {
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SelectedDT, new { htmlAttributes = new { @class = "form-control" } })
-            
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedDT, "Tarikh", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SelectedDT, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
-        <div class="col-md-10">
-            @Html.DropDownList("InstructorID", null, htmlAttributes: new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstructorID, "Penjual", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("InstructorID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>  
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
         </div>
-            <input type="submit" value="Search" />
-        </div>
-   
-}
-<table class="table">
-    <tr>
-        <th>
-           TARIKH
-        </th>
-        <th>
-            NAMA PENUAL
-        </th>
-        <th>
-           NOMBOR LESEN / PAT-G
-        </th>
-        <th>
-            KEBENARAN BERTULIS
-        </th>
-        <th>
-            RESIT RASMI
-        </th>
-        <th>
-            SKRAP
-        </th>
-        <th>
-           LATEKS
-        </th>
-        <th>
-            LAIN-LAIN
-        </th>
-        <th>
-            KG
-        </th>
-        <th>
-            HARGA SEKILO
-        </th>
-        <th>
-            JUMLAH DIBAYAR
-        </th>
-        
-       
-        <th></th>
-    </tr>
-    @foreach (var item in Model.DepmtList)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Administrator.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Administrator.NomborLesen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KebenaranBertulis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResitRasmi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Skrap)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lateks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lain)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Multiplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-           
+     </div>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
-            </td>
-        </tr>
+ }
+            <table class="table">
+                <tr>
+                    <th>
+                        TARIKH
+                    </th>
+                    <th>
+                        NAMA PENUAL
+                    </th>
+                    <th>
+                        NOMBOR LESEN / PAT-G
+                    </th>
+                    <th>
+                        KEBENARAN BERTULIS
+                    </th>
+                    <th>
+                        RESIT RASMI
+                    </th>
+                    <th>
+                        SKRAP
+                    </th>
+                    <th>
+                        LATEKS
+                    </th>
+                    <th>
+                        LAIN-LAIN
+                    </th>
+                    <th>
+                        KG
+                    </th>
+                    <th>
+                        HARGA SEKILO
+                    </th>
+                    <th>
+                        JUMLAH DIBAYAR
+                    </th>
+
+
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.DepmtList)
+    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Administrator.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Administrator.NomborLesen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KebenaranBertulis)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResitRasmi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Skrap)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lateks)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lain)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kg)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Multiplier)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Budget)
+                        </td>
+
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+                        </td>
+                    </tr>
     }
-</table>
+            </table>
