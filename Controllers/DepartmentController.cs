@@ -70,7 +70,7 @@ namespace ContosoUniversity.Controllers
             Response.Flush();
             Response.End();
 
-            return View("MyView");
+            return View(bln);
         }
 
         public ActionResult Export(BelianVM bln)
@@ -119,7 +119,7 @@ namespace ContosoUniversity.Controllers
             Response.Flush();
             Response.End();
 
-            return View("MyView");
+            return View(bln);
         }
 
         // GET: Department
