@@ -4,11 +4,7 @@
 }
 <h2>Senarai Belian</h2>
 <p>
-    @Html.ActionLink("Create New", "Create") |
-
-    @Html.ActionLink("Export to Excel", "Export") |
-
-    @Html.ActionLink("Export Claim", "ExportClaim") |
+    @Html.ActionLink("Create New", "Create")
 </p>
 @using (Html.BeginForm("Index", "Department", FormMethod.Get))
 {
@@ -29,6 +25,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" name="submitButton" value="Search" class="btn btn-default" />
                 <input type="submit" name="submitButton" value="Export" class="btn btn-default" />
+                <input type="submit" name="submitButton" value="ExportClaim" class="btn btn-default" />
             </div>
         </div>
      </div>

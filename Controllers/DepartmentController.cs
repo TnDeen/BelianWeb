@@ -20,9 +20,8 @@ namespace ContosoUniversity.Controllers
     public class DepartmentController : Controller
     {
         private SchoolContext db = new SchoolContext();
-        private IEnumerable<Department> selectedDept = null;
 
-        public ActionResult ExportClaim()
+        public ActionResult ExportClaim(IEnumerable<Department> dpmntList)
         {
             var products = new System.Data.DataTable("teste");
             products.Columns.Add("Bil", typeof(string));
@@ -36,9 +35,12 @@ namespace ContosoUniversity.Controllers
             //dept.Administrator.FullName
             decimal rm = 0;
             decimal kg = 0;
-            var departments = selectedDept;
+            if (dpmntList == null)
+            {
+                dpmntList = db.Departments.Include(d => d.Administrator);
+            }
             int x = 1;
-            foreach (var dept in departments)
+            foreach (var dept in dpmntList)
             {
                 rm = rm + dept.Budget;
                 kg = kg + dept.Kg;
@@ -129,21 +131,24 @@ namespace ContosoUniversity.Controllers
             {
                 int year = SelectedDT.Value.Month;
                 viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == year && d.Administrator.ID == InstructorID);
-                switch (submitButton)
-                {
-                    case "Export":
-                        Export(viewModel.DepmtList);
-                        break;
-                    default:
-                        break;
-                }
+                
             }
             else
             {
                 viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
             }
 
-            selectedDept = viewModel.DepmtList;
+            switch (submitButton)
+            {
+                case "Export":
+                    Export(viewModel.DepmtList);
+                    break;
+                case "ExportClaim":
+                    ExportClaim(viewModel.DepmtList);
+                    break;
+                default:
+                    break;
+            }
             
             
             return View(viewModel);
