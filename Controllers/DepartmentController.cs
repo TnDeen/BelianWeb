@@ -21,8 +21,9 @@ namespace ContosoUniversity.Controllers
     {
         private SchoolContext db = new SchoolContext();
 
-        public ActionResult ExportClaim(IEnumerable<Department> dpmntList)
+        public ActionResult ExportClaim(BelianVM bln)
         {
+            var dpmntList = bln.DepmtList;
             var products = new System.Data.DataTable("teste");
             products.Columns.Add("Bil", typeof(string));
             products.Columns.Add("Tarikh", typeof(string));
@@ -56,7 +57,7 @@ namespace ContosoUniversity.Controllers
 
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=Claim.xls");
+            Response.AddHeader("content-disposition", "attachment; filename=Claim" + "_" + bln.NamaPenJual + "_" + bln.Month +".xls");
             Response.ContentType = "application/ms-excel";
 
             Response.Charset = "";
@@ -72,8 +73,9 @@ namespace ContosoUniversity.Controllers
             return View("MyView");
         }
 
-        public ActionResult Export(IEnumerable<Department> dpmntList)
+        public ActionResult Export(BelianVM bln)
         {
+            var dpmntList = bln.DepmtList;
             var products = new System.Data.DataTable("teste");
             products.Columns.Add("Tarikh", typeof(DateTime));
             products.Columns.Add("Nama Penjual", typeof(string));
@@ -104,7 +106,7 @@ namespace ContosoUniversity.Controllers
 
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=Belian.xls");
+            Response.AddHeader("content-disposition", "attachment; filename=Belian" + "_" + bln.NamaPenJual + "_" + bln.Month + ".xls");
             Response.ContentType = "application/ms-excel";
 
             Response.Charset = "";
@@ -129,22 +131,28 @@ namespace ContosoUniversity.Controllers
             var viewModel = new BelianVM();
             if (SelectedDT != null && InstructorID != null)
             {
-                int year = SelectedDT.Value.Month;
-                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == year && d.Administrator.ID == InstructorID);
+                int month = SelectedDT.Value.Month;
+                viewModel.Month = month;
+                Instructor Inst = new Instructor();
+                Inst = db.Instructors.Where(i => i.ID == InstructorID).Single();
+                viewModel.NamaPenJual = Inst.LastName;
+                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == month && d.Administrator.ID == InstructorID);
                 
             }
             else
             {
+                viewModel.Month = 0;
+                viewModel.NamaPenJual = "All";
                 viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
             }
 
             switch (submitButton)
             {
                 case "Export":
-                    Export(viewModel.DepmtList);
+                    Export(viewModel);
                     break;
                 case "ExportClaim":
-                    ExportClaim(viewModel.DepmtList);
+                    ExportClaim(viewModel);
                     break;
                 default:
                     break;

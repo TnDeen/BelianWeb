@@ -17,5 +17,8 @@ namespace ContosoUniversity.ViewModels
         public DateTime SelectedDT { get; set; }
 
         public int? InstructorID { get; set; }
+
+        public int? Month { get; set; }
+        public string NamaPenJual { get; set; }
     }
 }
