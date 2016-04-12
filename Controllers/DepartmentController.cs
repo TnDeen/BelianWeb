@@ -140,12 +140,14 @@ namespace ContosoUniversity.Controllers
                     ExportClaim(viewModel);
                     break;
                 case "ClaimAll":
+                    List<BelianVM> bvmlist = new List<BelianVM>();
                     IEnumerable<Instructor> list = db.Instructors.ToList();
                     foreach (Instructor item in list)
                     {
                         viewModel = initBelianVMData(SelectedDT, item.ID);
-                        ExportClaim(viewModel);
+                        bvmlist.Add(viewModel);
                     }
+                    initExcelFromTemplate(bvmlist);
                     break;
                 default:
                     break;
@@ -214,32 +216,57 @@ namespace ContosoUniversity.Controllers
                     }
                     
                 }
-                initExcelFromTemplate();
             }
             return View();
         }
 
-          public void initExcelFromTemplate()
+        public void initExcelFromTemplate(List<BelianVM> bvmlist)
         {
+            if (!bvmlist.Any())
+            {
+                return;
+            }
             Application excel = new Application();
-            excel.Visible = true;
+            excel.Visible = false;
             string path = HttpContext.Server.MapPath("~/Template/instructor.xlsx");
-            string newpath = HttpContext.Server.MapPath("~/Template/instructor2.xlsx");
+            string newfilename = "Claim_All_" + bvmlist[0].Month + ".xlsx";
+            string newpath = HttpContext.Server.MapPath("~/Template/" + newfilename);
             Workbook wb = excel.Workbooks.Open(path);
-            Worksheet sh = wb.Sheets.get_Item(1);
-              if (sh == null)
-              {
-                  sh = wb.Sheets.Add();
-                  sh.Name = "testname";
-              }
-            sh.Cells[1,"A"].Value = "SNO";
-            sh.Cells[2,"B"].Value = "A";
-            sh.Cells[2,"C"].Value = "1213";
-            sh.Cells[2, "D"].Value = "A";
-            sh.Cells[2, "E"].Value = "1213";
+            for (int rowIterator = 0; rowIterator < bvmlist.Count(); rowIterator++)
+            {
+                BelianVM bln = bvmlist[rowIterator];
+
+                if (bln != null && bln.DepmtList.Any())
+                {
+                    int sheetindex = rowIterator + 1;
+                    Worksheet sh = null;
+                    if (sheetindex == 1)
+                    {
+                        sh = wb.Sheets.get_Item(sheetindex); 
+                    }
+                    else
+                    {
+                        sh = wb.Sheets.Add();
+                    }
+                    sh.Name = bln.NamaPenJual;
+                    sh.Cells[5, "G"].Value = bln.NamaPenJual;
+                    int x = 12;
+                    foreach (Department item in bln.DepmtList)
+                    {
+                        int newx = x++;
+                        sh.Cells[newx, "B"].Value = item.StartDate;
+                        sh.Cells[newx, "C"].Value = "";
+                        sh.Cells[newx, "D"].Value = item.Kg;
+                        sh.Cells[newx, "E"].Value = "60%";
+                        sh.Cells[newx, "F"].Value = item.Multiplier;
+                        sh.Cells[newx, "G"].Value = item.Budget;
+
+                    }
+                    
+                }
+            }
             wb.SaveAs(newpath);
             excel.Quit();
-           
         }
 
         // GET: Department/Details/5
