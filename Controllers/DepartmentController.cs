@@ -201,7 +201,7 @@ namespace ContosoUniversity.Controllers
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
 
-                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        for (int rowIterator = 1; rowIterator <= noOfRow; rowIterator++)
                         {
                             var inst = new Instructor();
                             inst.FirstMidName = workSheet.Cells[rowIterator, 1].Value.ToString();
