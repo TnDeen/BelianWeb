@@ -214,8 +214,32 @@ namespace ContosoUniversity.Controllers
                     }
                     
                 }
+                initExcelFromTemplate();
             }
             return View();
+        }
+
+          public void initExcelFromTemplate()
+        {
+            Application excel = new Application();
+            excel.Visible = true;
+            string path = HttpContext.Server.MapPath("~/Template/instructor.xlsx");
+            string newpath = HttpContext.Server.MapPath("~/Template/instructor2.xlsx");
+            Workbook wb = excel.Workbooks.Open(path);
+            Worksheet sh = wb.Sheets.get_Item(1);
+              if (sh == null)
+              {
+                  sh = wb.Sheets.Add();
+                  sh.Name = "testname";
+              }
+            sh.Cells[1,"A"].Value = "SNO";
+            sh.Cells[2,"B"].Value = "A";
+            sh.Cells[2,"C"].Value = "1213";
+            sh.Cells[2, "D"].Value = "A";
+            sh.Cells[2, "E"].Value = "1213";
+            wb.SaveAs(newpath);
+            excel.Quit();
+           
         }
 
         // GET: Department/Details/5
