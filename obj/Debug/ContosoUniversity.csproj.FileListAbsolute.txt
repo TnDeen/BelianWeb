@@ -70,6 +70,7 @@ C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Sys
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\System.Web.WebPages.Razor.xml
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Antlr3.Runtime.pdb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\Newtonsoft.Json.xml
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.ResolveComReference.cache
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.InitialCreate.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.MaxLengthOnNames.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.ComplexDataModel.resources
@@ -78,10 +79,13 @@ C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Deb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.Inheritance.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.Files.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.FilePaths.resources
-C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.GenerateResource.Cache
-C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.dll
-C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.departmenttable.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.adddeprtment.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.updateinstructor.resources
 C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.REMOVECOLUMNDATE.resources
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.GenerateResource.Cache
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.dll
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\EPPlus.dll
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\EPPlus.xml
+C:\Users\TnDeen\Desktop\data entry application\Project\ContosoUniversity\bin\System.Web.Mvc.xml

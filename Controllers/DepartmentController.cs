@@ -14,6 +14,8 @@ using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ContosoUniversity.ViewModels;
+using Microsoft.Office.Interop.Excel;
+using OfficeOpenXml;
 
 namespace ContosoUniversity.Controllers
 {
@@ -128,24 +130,7 @@ namespace ContosoUniversity.Controllers
 
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName");
 
-            var viewModel = new BelianVM();
-            if (SelectedDT != null && InstructorID != null)
-            {
-                int month = SelectedDT.Value.Month;
-                viewModel.Month = month;
-                Instructor Inst = new Instructor();
-                Inst = db.Instructors.Where(i => i.ID == InstructorID).Single();
-                viewModel.NamaPenJual = Inst.LastName;
-                viewModel.DepmtList = db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == month && d.Administrator.ID == InstructorID);
-                
-            }
-            else
-            {
-                viewModel.Month = 0;
-                viewModel.NamaPenJual = "All";
-                viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
-            }
-
+            var viewModel = initBelianVMData(SelectedDT, InstructorID);
             switch (submitButton)
             {
                 case "Export":
@@ -154,12 +139,83 @@ namespace ContosoUniversity.Controllers
                 case "ExportClaim":
                     ExportClaim(viewModel);
                     break;
+                case "ClaimAll":
+                    IEnumerable<Instructor> list = db.Instructors.ToList();
+                    foreach (Instructor item in list)
+                    {
+                        viewModel = initBelianVMData(SelectedDT, item.ID);
+                        ExportClaim(viewModel);
+                    }
+                    break;
                 default:
                     break;
             }
-            
-            
+
+           
             return View(viewModel);
+        }
+
+        private BelianVM initBelianVMData(DateTime? SelectedDT, int? InstructorID)
+        {
+            var viewModel = new BelianVM();
+            if (SelectedDT != null && InstructorID != null)
+            {
+                int month = SelectedDT.Value.Month;
+                viewModel.Month = month;
+                Instructor Inst = new Instructor();
+                Inst = db.Instructors.Where(i => i.ID == InstructorID).Single();
+                viewModel.NamaPenJual = Inst.LastName;
+                viewModel.DepmtList = getDepartmentByMonthAndUser(month, InstructorID);
+
+            }
+            else
+            {
+                viewModel.Month = 0;
+                viewModel.NamaPenJual = "All";
+                viewModel.DepmtList = db.Departments.Include(d => d.Administrator);
+            }
+            return viewModel;
+        }
+
+        public IEnumerable<Department> getDepartmentByMonthAndUser (int month, int ? userId)
+        {
+            return db.Departments.Include(d => d.Administrator).Where(d => d.StartDate.Month == month && d.Administrator.ID == userId);
+        }
+
+        public ActionResult Upload(FormCollection formCollection)
+        {
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    var instList = new List<Instructor>();
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var noOfCol = workSheet.Dimension.End.Column;
+                        var noOfRow = workSheet.Dimension.End.Row;
+
+                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        {
+                            var inst = new Instructor();
+                            inst.FirstMidName = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            inst.LastName = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            inst.NomborLesen = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            instList.Add(inst);
+                            db.Instructors.Add(inst);
+                            db.SaveChanges();
+                        }
+                    }
+                    
+                }
+            }
+            return View();
         }
 
         // GET: Department/Details/5
